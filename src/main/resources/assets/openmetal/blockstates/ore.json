@@ -1,0 +1,23 @@
+{
+  "defaults": {
+    "model": "cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "type=tin": {
+      "texture": {
+        "all": "openmetal:blocks/ore_copper"
+      }
+    },
+    "type=copper": {
+      "texture": {
+        "all": "openmetal:blocks/ore_copper"
+      }
+    },
+    "type=manganese": {
+      "texture": {
+        "all": "openmetal:blocks/ore_copper"
+      }
+    }
+  }
+}
