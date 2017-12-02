@@ -8,7 +8,7 @@
     "type": {
       "tin": {
         "texture": {
-          "all": "openmetal:blocks/oreTin"
+          "layer0": "openmetal:blocks/oreTin"
         }
       },
       "copper": {
