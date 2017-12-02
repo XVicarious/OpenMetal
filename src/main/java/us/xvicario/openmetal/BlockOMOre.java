@@ -27,6 +27,7 @@ public class BlockOMOre extends Block implements IMetaBlockName {
         setHardness(3F);
         setResistance(5F);
         setCreativeTab(CreativeTabOpenMetal.tabOpenMetal);
+        setUnlocalizedName("ore");
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumOres.COPPER));
     }
 

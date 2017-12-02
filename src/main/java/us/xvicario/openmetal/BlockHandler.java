@@ -25,30 +25,29 @@ public class BlockHandler {
     public static void init() {
         blockOMOre = new BlockOMOre();
         blockOMOre.setRegistryName("ore");
-        itemBlockOMOre = new ItemBlock(blockOMOre);
+        itemBlockOMOre = new ItemBlockMeta(blockOMOre);
 
     }
 
     public static void registerRender(Block block) {
-        Item item = Item.getItemFromBlock(block);
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+
     }
 
     @Mod.EventBusSubscriber(modid = ModOpenMetal.MODID)
     public static class RegistrationHandler {
+
         @SubscribeEvent
-        public void registerBlocks(RegistryEvent.Register<Block> event) {
+        public static void registerBlocks(RegistryEvent.Register<Block> event) {
             BlockHandler.init();
-            ModOpenMetal.logger.log(Level.INFO, "Registering blocks...");
-            event.getRegistry().register(BlockHandler.blockOMOre);
+            event.getRegistry().register(BlockHandler.blockOMOre);;
         }
 
         @SubscribeEvent
-        public void registerItemBlocks(RegistryEvent.Register<Item> event) {
-            ModOpenMetal.logger.log(Level.INFO, "Registering item blocks...");
+        public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
             ResourceLocation registryName = Preconditions.checkNotNull(BlockHandler.blockOMOre.getRegistryName(), "Block has %s null registry name", BlockHandler.blockOMOre);
             event.getRegistry().register(BlockHandler.itemBlockOMOre.setRegistryName(registryName));
         }
+
     }
 
 }

@@ -8,6 +8,14 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'pmd'
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+
+//check.dependsOn 'pmd', 'checkstyle', 'findbugs'
+
+
+def configDir = "${project.rootDir}/config"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
@@ -74,4 +82,47 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+task checkstyle(type: Checkstyle, group: "verification") {
+    ignoreFailures = true
+    configFile file("$configDir/checkstyle/checkstyle.xml")
+    //configProperties.checkstyleSuppressionsPath = file("$configDir/checkstyle/suppressions.xml").absolutePath
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    classpath = files()
+}
+
+task findbugs(type: FindBugs, dependsOn: "build", group: "verification") {
+    ignoreFailures = true
+    effort = "max"
+    reportLevel = "high"
+    //excludeFilter = new File("$configDir/findbugs/findbugs.filter.xml")
+    classes = files("${project.rootDir}/mobile/build/intermediates/classes")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        html {
+            destination "$project.buildDir/reports/findbugs.html"
+        }
+    }
+    classpath = files()
+}
+
+task pmd(type: Pmd, group: "verification") {
+    ignoreFailures = true
+    //ruleSetFiles = files("$configDir/pmd/pmd.xml")
+    reports {
+        html.enabled = true
+        html {
+            destination "$project.buildDir/reports/pmd.html"
+        }
+    }
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
 }

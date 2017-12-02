@@ -1,23 +1,29 @@
 {
+  "forge_marker": 1,
   "defaults": {
-    "model": "cube_all",
+    "model": "cube",
     "transform": "forge:default-block"
   },
   "variants": {
-    "type=tin": {
-      "texture": {
-        "all": "openmetal:blocks/ore_copper"
+    "type": {
+      "tin": {
+        "texture": {
+          "all": "openmetal:blocks/oreTin"
+        }
+      },
+      "copper": {
+        "texture": {
+          "all": "openmetal:blocks/oreCopper"
+        }
+      },
+      "manganese": {
+        "texture": {
+          "all": "openmetal:blocks/oreManganese"
+        }
       }
     },
-    "type=copper": {
-      "texture": {
-        "all": "openmetal:blocks/ore_copper"
-      }
-    },
-    "type=manganese": {
-      "texture": {
-        "all": "openmetal:blocks/ore_copper"
-      }
+    "inventory": {
+      "model": "cube"
     }
   }
 }

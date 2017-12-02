@@ -33,6 +33,7 @@ public class CommonProxy {
         config = new Configuration(new File(directory.getPath(), "OpenMetal.cfg"));
         // todo: read configuration file
         // todo: packet handler
+        BlockHandler.init();
     }
 
     public void init(FMLInitializationEvent event) {

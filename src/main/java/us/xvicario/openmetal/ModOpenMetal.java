@@ -1,17 +1,25 @@
 package us.xvicario.openmetal;
 
+import com.google.common.base.Preconditions;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import us.xvicario.openmetal.proxy.CommonProxy;
 
 /**
  * Created by XVicarious on 11/30/2017.
  */
+@Mod.EventBusSubscriber(modid = ModOpenMetal.MODID)
 @Mod(modid = ModOpenMetal.MODID, version = ModOpenMetal.VERSION, name = ModOpenMetal.NAME)
 public class ModOpenMetal {
     public static final String MODID = "openmetal";
@@ -29,8 +37,6 @@ public class ModOpenMetal {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
-        logger.info("preInit started...");
-        logger.error("REEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         proxy.preInit(event);
     }
 
@@ -48,4 +54,5 @@ public class ModOpenMetal {
     public void serverLoad(FMLServerStartingEvent event) {
 
     }
+
 }
