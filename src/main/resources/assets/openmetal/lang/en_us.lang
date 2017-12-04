@@ -1,0 +1,10 @@
+tile.openmetal:ore.copper.name=Copper Ore
+tile.openmetal:ore.tin.name=Tin Ore
+tile.openmetal:ore.manganese.name=Manganese Ore
+
+item.openmetal:ingot.copper.name=Copper Ingot
+item.openmetal:ingot.tin.name=Tin Ingot
+item.openmetal:ingot.manganese=Manganese Ingot
+item.openmetal:ingot.bronze.name=Bronze Ingot
+item.openmetal:ingot.hepatizon.name=Hepatizon Ingot
+item.openmetal:ingot.angmallen.name=Angmallen Ingot

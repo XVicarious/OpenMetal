@@ -1,8 +1,9 @@
-package us.xvicario.openmetal;
+package us.xvicario.openmetal.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import us.xvicario.openmetal.ModOpenMetal;
 
 /**
  * Created by XVicarious on 12/1/2017.
@@ -26,6 +27,6 @@ public class ItemBlockMeta extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName(stack) + "." + ((IMetaBlockName)this.block).getSpecialName(stack);
+        return "tile." + ModOpenMetal.MODID + ":ore." + ((IMetaBlockName)this.block).getSpecialName(stack);
     }
 }

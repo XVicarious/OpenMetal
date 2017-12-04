@@ -1,4 +1,4 @@
-package us.xvicario.openmetal;
+package us.xvicario.openmetal.blocks;
 
 import net.minecraft.item.ItemStack;
 
