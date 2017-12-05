@@ -2,5 +2,24 @@
   "forge_marker": 1,
   "defaults": {
     "model": "openmetal:item/generated"
+  },
+  "variants": {
+    "ingot": {
+      "copper": {
+        "textures": {
+          "layer0": "openmetal:items/ingotcopper"
+        }
+      },
+      "manganese": {
+        "textures": {
+          "layer0": "openmetal:items/ingotmanganese"
+        }
+      },
+      "tin": {
+        "textures": {
+          "layer0": "openmetal:items/ingottin"
+        }
+      }
+    }
   }
 }

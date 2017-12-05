@@ -4,8 +4,12 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import us.xvicario.openmetal.BlockHandler;
+import us.xvicario.openmetal.ItemHandler;
 import us.xvicario.openmetal.ModOpenMetal;
+import us.xvicario.openmetal.OreDictUtils;
+import us.xvicario.openmetal.items.ItemOMIngot;
 
 import java.io.File;
 
@@ -22,7 +26,6 @@ public class CommonProxy {
         config = new Configuration(new File(directory.getPath(), "OpenMetal.cfg"));
         // todo: read configuration file
         // todo: packet handler
-        BlockHandler.init();
     }
 
     public void init(FMLInitializationEvent event) {

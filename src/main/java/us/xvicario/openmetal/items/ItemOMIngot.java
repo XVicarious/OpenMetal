@@ -1,8 +1,10 @@
 package us.xvicario.openmetal.items;
 
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import us.xvicario.openmetal.EnumOres;
 import us.xvicario.openmetal.IVariant;
 
 import java.util.Comparator;
@@ -14,6 +16,8 @@ import java.util.stream.Stream;
  * Created by XVicarious on 12/3/2017.
  */
 public class ItemOMIngot extends ItemOpenMetal {
+
+    public static final PropertyEnum TYPE = PropertyEnum.create("type", EnumType.class);
 
     public ItemOMIngot() {
         super("ingot");
@@ -35,6 +39,9 @@ public class ItemOMIngot extends ItemOpenMetal {
         }
     }
 
+    public ItemStack get(IVariant type, int amount) {
+        return new ItemStack(this, amount, type.getMeta());
+    }
 
     public enum EnumType implements IVariant {
         COPPER(0, "copper"),

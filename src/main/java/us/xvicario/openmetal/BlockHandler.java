@@ -2,24 +2,24 @@ package us.xvicario.openmetal;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistry;
+import us.xvicario.openmetal.blocks.BlockOMMetal;
 import us.xvicario.openmetal.blocks.BlockOMOre;
+import us.xvicario.openmetal.items.ItemOMIngot;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static us.xvicario.openmetal.InjectionUtils.Null;
 
 /**
  * Created by XVicarious on 12/1/2017.
@@ -27,13 +27,9 @@ import java.util.Set;
 @ObjectHolder(ModOpenMetal.MODID)
 public class BlockHandler {
 
-    public static Block blockOMOre;
-    public static ItemBlock itemBlockOMOre;
+    public static BlockOMOre OM_ORE = new BlockOMOre();
 
-    public static void init() {
-        blockOMOre = new BlockOMOre();
-        itemBlockOMOre = new ItemMultiTexture(blockOMOre, blockOMOre, ((BlockOMOre)blockOMOre)::getName);
-    }
+    public static BlockOMMetal OM_METAL = new BlockOMMetal();
 
     @Mod.EventBusSubscriber(modid = ModOpenMetal.MODID)
     public static class RegistrationHandler {
@@ -42,20 +38,30 @@ public class BlockHandler {
 
         @SubscribeEvent
         public static void registerBlocks(RegistryEvent.Register<Block> event) {
-            BlockHandler.init();
-            event.getRegistry().register(blockOMOre);
+            final IForgeRegistry<Block> registry = event.getRegistry();
+            final Block[] blocks = {
+                    OM_ORE,
+                    OM_METAL
+            };
+            registry.registerAll(blocks);
         }
 
         @SubscribeEvent
         public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
-            ResourceLocation registryName =
-                    Preconditions.checkNotNull(
-                            blockOMOre.getRegistryName(),
-                            "Block %s has null registry name",
-                            blockOMOre);
-            ModOpenMetal.logger.debug("RegistryName is " + blockOMOre.getRegistryName());
-            event.getRegistry().register(itemBlockOMOre.setRegistryName(registryName));
-            ITEM_BLOCKS.add(itemBlockOMOre);
+            final IForgeRegistry<Item> registry = event.getRegistry();
+            final ItemBlock[] items = {
+                    new ItemMultiTexture(OM_ORE, OM_ORE, OM_ORE::getName),
+                    new ItemMultiTexture(OM_METAL, OM_METAL, OM_METAL::getName)
+            };
+            for (final ItemBlock item : items) {
+                final Block block = item.getBlock();
+                final ResourceLocation registryName = Preconditions.checkNotNull(block.getRegistryName(), "Block %s has null registry name", block);
+                registry.register(item.setRegistryName(registryName));
+                ITEM_BLOCKS.add(item);
+            }
+            for (ItemOMIngot.EnumType resourceType : ItemOMIngot.EnumType.values()) {
+                OreDictionary.registerOre(OreDictUtils.metalNames[resourceType.getMeta()], BlockHandler.OM_METAL.get(resourceType, 1));
+            }
         }
 
     }

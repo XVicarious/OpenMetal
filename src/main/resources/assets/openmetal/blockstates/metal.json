@@ -1,0 +1,40 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all"
+  },
+  "variants": {
+    "type": {
+      "tin": {
+        "textures": {
+          "all": "openmetal:blocks/metaltin"
+        }
+      },
+      "copper": {
+        "textures": {
+          "all": "openmetal:blocks/metalcopper"
+        }
+      },
+      "manganese": {
+        "textures": {
+          "all": "openmetal:blocks/metalmanganese"
+        }
+      },
+      "bronze": {
+        "textures": {
+          "all": "openmetal:blocks/metalbronze"
+        }
+      },
+      "hepatizon": {
+        "textures": {
+          "all": "openmetal:blocks/metalhepatizon"
+        }
+      },
+      "angmallen": {
+        "textures": {
+          "all": "openmetal:blocks/metalangmallen"
+        }
+      }
+    }
+  }
+}
