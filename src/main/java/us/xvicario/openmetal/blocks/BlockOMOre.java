@@ -16,6 +16,9 @@ import us.xvicario.openmetal.CreativeTabOpenMetal;
 import us.xvicario.openmetal.EnumOres;
 import us.xvicario.openmetal.IVariant;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
  * Created by XVicarious on 11/30/2017.
  */
@@ -27,29 +30,31 @@ public class BlockOMOre extends BlockOpenMetal implements IMetaBlockName {
         super(Material.ROCK, "ore");
         setHardness(3F);
         setResistance(5F);
-        setCreativeTab(CreativeTabOpenMetal.tabOpenMetal);
+        setCreativeTab(CreativeTabOpenMetal.TAB_OPEN_METAL);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumOres.COPPER));
     }
 
     @Override
     public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> items) {
         for (EnumOres enumOres : EnumOres.values()) {
-            items.add(new ItemStack(this, 1, enumOres.getId()));
+            items.add(new ItemStack(this, 1, enumOres.getMeta()));
         }
     }
 
     @Override
+    @Nonnull
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, TYPE);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumOres) state.getValue(TYPE)).getId();
+        return ((EnumOres) state.getValue(TYPE)).getMeta();
     }
 
     @SuppressWarnings("deprecation")
     @Override
+    @Nonnull
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(TYPE, EnumOres.values()[meta]);
     }
@@ -60,13 +65,18 @@ public class BlockOMOre extends BlockOpenMetal implements IMetaBlockName {
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(world.getBlockState(pos)));
-    }
-
-    @Override
-    public String getSpecialName(ItemStack itemStack) {
-        return EnumOres.getNameFromMeta(itemStack.getMetadata());
+    @Nonnull
+    @ParametersAreNonnullByDefault
+    public ItemStack getPickBlock(
+            IBlockState state,
+            RayTraceResult target,
+            World world,
+            BlockPos pos,
+            EntityPlayer player) {
+        return new ItemStack(
+                Item.getItemFromBlock(this),
+                1,
+                this.getMetaFromState(world.getBlockState(pos)));
     }
 
     @Override
@@ -74,6 +84,7 @@ public class BlockOMOre extends BlockOpenMetal implements IMetaBlockName {
         return new ItemStack(this, amount, type.getMeta());
     }
 
+    @Override
     public String getName(final ItemStack itemStack) {
         return EnumOres.getNameFromMeta(itemStack.getMetadata());
     }

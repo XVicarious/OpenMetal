@@ -8,7 +8,7 @@ import us.xvicario.openmetal.IVariant;
  */
 public interface IMetaBlockName {
 
-    String getSpecialName(ItemStack itemStack);
+    String getName(ItemStack itemStack);
 
     ItemStack get(IVariant type, int amount);
 

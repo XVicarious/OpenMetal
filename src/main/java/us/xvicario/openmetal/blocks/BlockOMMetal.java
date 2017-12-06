@@ -13,45 +13,50 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import us.xvicario.openmetal.CreativeTabOpenMetal;
+import us.xvicario.openmetal.EnumMetal;
 import us.xvicario.openmetal.IVariant;
-import us.xvicario.openmetal.items.ItemOMIngot;
+
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Created by XVicarious on 12/3/2017.
  */
 public class BlockOMMetal extends BlockOpenMetal implements IMetaBlockName {
 
-    public static final PropertyEnum TYPE = PropertyEnum.create("type", ItemOMIngot.EnumType.class);
+    public static final PropertyEnum TYPE = PropertyEnum.create("type", EnumMetal.class);
 
     public BlockOMMetal() {
         super(Material.ROCK, "metal");
         setHardness(3F);
         setResistance(5F);
-        setCreativeTab(CreativeTabOpenMetal.tabOpenMetal);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, ItemOMIngot.EnumType.COPPER));
+        setCreativeTab(CreativeTabOpenMetal.TAB_OPEN_METAL);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumMetal.COPPER));
     }
 
     @Override
     public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> items) {
-        for (ItemOMIngot.EnumType enumOres : ItemOMIngot.EnumType.values()) {
+        for (EnumMetal enumOres : EnumMetal.values()) {
             items.add(new ItemStack(this, 1, enumOres.getMeta()));
         }
     }
 
     @Override
+    @Nonnull
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, TYPE);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((ItemOMIngot.EnumType) state.getValue(TYPE)).getMeta();
+        return ((EnumMetal) state.getValue(TYPE)).getMeta();
     }
 
     @SuppressWarnings("deprecation")
     @Override
+    @Nonnull
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, ItemOMIngot.EnumType.values()[meta]);
+        return getDefaultState().withProperty(TYPE, EnumMetal.values()[meta]);
     }
 
     @Override
@@ -60,13 +65,18 @@ public class BlockOMMetal extends BlockOpenMetal implements IMetaBlockName {
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(world.getBlockState(pos)));
-    }
-
-    @Override
-    public String getSpecialName(ItemStack itemStack) {
-        return ItemOMIngot.EnumType.byMetadata(itemStack.getMetadata()).getName();
+    @Nonnull
+    @ParametersAreNonnullByDefault
+    public ItemStack getPickBlock(
+            IBlockState state,
+            RayTraceResult target,
+            World world,
+            BlockPos pos,
+            EntityPlayer player) {
+        return new ItemStack(
+                Item.getItemFromBlock(this),
+                1,
+                this.getMetaFromState(world.getBlockState(pos)));
     }
 
     @Override
@@ -74,8 +84,9 @@ public class BlockOMMetal extends BlockOpenMetal implements IMetaBlockName {
         return new ItemStack(this, amount, type.getMeta());
     }
 
+    @Override
     public String getName(final ItemStack itemStack) {
-        return ItemOMIngot.EnumType.byMetadata(itemStack.getMetadata()).getName();
+        return EnumMetal.byMetadata(itemStack.getMetadata()).getName();
     }
 
 }

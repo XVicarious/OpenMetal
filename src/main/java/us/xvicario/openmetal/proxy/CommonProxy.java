@@ -4,12 +4,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.oredict.OreDictionary;
-import us.xvicario.openmetal.BlockHandler;
-import us.xvicario.openmetal.ItemHandler;
 import us.xvicario.openmetal.ModOpenMetal;
-import us.xvicario.openmetal.OreDictUtils;
-import us.xvicario.openmetal.items.ItemOMIngot;
 
 import java.io.File;
 

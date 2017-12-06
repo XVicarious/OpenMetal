@@ -10,7 +10,7 @@ import us.xvicario.openmetal.ModOpenMetal;
 public class ItemOpenMetal extends Item {
     public ItemOpenMetal(final String itemName) {
         setItemName(this, itemName);
-        setCreativeTab(CreativeTabOpenMetal.tabOpenMetal);
+        setCreativeTab(CreativeTabOpenMetal.TAB_OPEN_METAL);
     }
     public static void setItemName(final Item item, final String itemName) {
         item.setRegistryName(ModOpenMetal.MODID, itemName);

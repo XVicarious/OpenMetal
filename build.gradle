@@ -115,7 +115,7 @@ task findbugs(type: FindBugs, dependsOn: "build", group: "verification") {
 
 task pmd(type: Pmd, group: "verification") {
     ignoreFailures = true
-    //ruleSetFiles = files("$configDir/pmd/pmd.xml")
+    ruleSetFiles = files("$configDir/pmd/pmd.xml")
     reports {
         html.enabled = true
         html {

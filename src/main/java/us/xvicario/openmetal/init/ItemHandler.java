@@ -1,19 +1,19 @@
-package us.xvicario.openmetal;
+package us.xvicario.openmetal.init;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
+import us.xvicario.openmetal.EnumMetal;
+import us.xvicario.openmetal.ModOpenMetal;
+import us.xvicario.openmetal.OreDictUtils;
 import us.xvicario.openmetal.items.ItemOMIngot;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static us.xvicario.openmetal.InjectionUtils.Null;
 
 /**
  * Created by XVicarious on 12/3/2017.
@@ -38,8 +38,10 @@ public class ItemHandler {
                 registry.register(item);
                 ITEMS.add(item);
             }
-            for (ItemOMIngot.EnumType resourceType : ItemOMIngot.EnumType.values()) {
-                OreDictionary.registerOre(OreDictUtils.ingotNames[resourceType.getMeta()], ItemHandler.OM_INGOT.get(resourceType, 1));
+            for (EnumMetal resourceType : EnumMetal.values()) {
+                OreDictionary.registerOre(
+                        OreDictUtils.ingotNames[resourceType.getMeta()],
+                        ItemHandler.OM_INGOT.get(resourceType, 1));
             }
         }
 

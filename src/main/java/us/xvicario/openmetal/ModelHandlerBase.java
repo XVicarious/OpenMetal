@@ -32,7 +32,11 @@ public class ModelHandlerBase {
         final Item item = Item.getItemFromBlock(block);
 
         if (item != Items.AIR) {
-            registerItemModel(item, new ModelResourceLocation(block.getRegistryName(), propertyStringMapper.getPropertyString(state.getProperties())));
+            registerItemModel(
+                    item,
+                    new ModelResourceLocation(
+                            block.getRegistryName(),
+                            propertyStringMapper.getPropertyString(state.getProperties())));
         }
     }
 
@@ -48,12 +52,16 @@ public class ModelHandlerBase {
         final Item item = Item.getItemFromBlock(state.getBlock());
 
         if (item != Items.AIR) {
-            registerItemModelForMeta(item, metadata, propertyStringMapper.getPropertyString(state.getProperties()));
+            registerItemModelForMeta(
+                    item,
+                    metadata,
+                    propertyStringMapper.getPropertyString(state.getProperties()));
         }
     }
 
     /**
-     * Register a model for each metadata value of the {@link Block}'s {@link Item} corresponding to the values of an {@link IProperty}.
+     * Register a model for each metadata value of the {@link Block}'s {@link Item} corresponding to
+     * the values of an {@link IProperty}.
      * <p>
      * For each value:
      * <li>The domain/path is the registry name</li>
@@ -66,12 +74,19 @@ public class ModelHandlerBase {
      * @param getMeta   A function to get the metadata of each value
      * @param <T>       The value type
      */
-    protected <T extends Comparable<T>> void registerVariantBlockItemModels(final IBlockState baseState, final IProperty<T> property, final ToIntFunction<T> getMeta) {
-        property.getAllowedValues().forEach(value -> registerBlockItemModelForMeta(baseState.withProperty(property, value), getMeta.applyAsInt(value)));
+    protected <T extends Comparable<T>> void registerVariantBlockItemModels(
+            final IBlockState baseState,
+            final IProperty<T> property,
+            final ToIntFunction<T> getMeta) {
+        property.getAllowedValues().forEach(
+                value -> registerBlockItemModelForMeta(
+                        baseState.withProperty(property, value),
+                        getMeta.applyAsInt(value)));
     }
 
     /**
-     * Register a model for each metadata value of the {@link Block}'s {@link Item} corresponding to the values of an {@link IProperty}.
+     * Register a model for each metadata value of the {@link Block}'s {@link Item} corresponding to
+     * the values of an {@link IProperty}.
      * <p>
      * For each value:
      * <li>The domain/path is the registry name</li>
@@ -83,7 +98,9 @@ public class ModelHandlerBase {
      * @param property  The property whose values should be used
      * @param <T>       The value type
      */
-    protected <T extends IVariant & Comparable<T>> void registerVariantBlockItemModels(final IBlockState baseState, final IProperty<T> property) {
+    protected <T extends IVariant & Comparable<T>> void registerVariantBlockItemModels(
+            final IBlockState baseState,
+            final IProperty<T> property) {
         registerVariantBlockItemModels(baseState, property, IVariant::getMeta);
     }
 
@@ -107,7 +124,8 @@ public class ModelHandlerBase {
      * @param modelLocation The model location
      */
     protected void registerItemModel(final Item item, final String modelLocation) {
-        final ModelResourceLocation fullModelLocation = new ModelResourceLocation(modelLocation, "inventory");
+        final ModelResourceLocation fullModelLocation =
+                new ModelResourceLocation(modelLocation, "inventory");
         registerItemModel(item, fullModelLocation);
     }
 
@@ -119,8 +137,11 @@ public class ModelHandlerBase {
      * @param item              The Item
      * @param fullModelLocation The full model location
      */
-    protected void registerItemModel(final Item item, final ModelResourceLocation fullModelLocation) {
-        ModelBakery.registerItemVariants(item, fullModelLocation); // Ensure the custom model is loaded and prevent the default model from being loaded
+    protected void registerItemModel(
+            final Item item,
+            final ModelResourceLocation fullModelLocation) {
+        // Ensure the custom model is loaded and prevent the default model from being loaded
+        ModelBakery.registerItemVariants(item, fullModelLocation);
         registerItemModel(item, stack -> fullModelLocation);
     }
 
@@ -141,9 +162,11 @@ public class ModelHandlerBase {
     }
 
     /**
-     * Register a model for each metadata value of an {@link Item} corresponding to the values in {@code values}.
+     * Register a model for each metadata value of an {@link Item} corresponding to the values in
+     * {@code values}.
      * <p>
-     * Uses the registry name as the domain/path and {@code "[variantName]=[valueName]"} as the variant.
+     * Uses the registry name as the domain/path and {@code "[variantName]=[valueName]"} as the
+     * variant.
      * <p>
      * Uses {@link IVariant#getMeta()} to determine the metadata of each value.
      *
@@ -152,9 +175,15 @@ public class ModelHandlerBase {
      * @param values      The values
      * @param <T>         The value type
      */
-    protected <T extends IVariant> void registerVariantItemModels(final Item item, final String variantName, final T[] values) {
+    protected <T extends IVariant> void registerVariantItemModels(
+            final Item item,
+            final String variantName,
+            final T[] values) {
         for (final T value : values) {
-            registerItemModelForMeta(item, value.getMeta(), variantName + "=" + value.getName());
+            registerItemModelForMeta(
+                    item,
+                    value.getMeta(),
+                    variantName + "=" + value.getName());
         }
     }
 
@@ -167,8 +196,14 @@ public class ModelHandlerBase {
      * @param metadata The metadata
      * @param variant  The variant
      */
-    protected void registerItemModelForMeta(final Item item, final int metadata, final String variant) {
-        registerItemModelForMeta(item, metadata, new ModelResourceLocation(item.getRegistryName(), variant));
+    protected void registerItemModelForMeta(
+            final Item item,
+            final int metadata,
+            final String variant) {
+        registerItemModelForMeta(
+                item,
+                metadata,
+                new ModelResourceLocation(item.getRegistryName(), variant));
     }
 
     /**
@@ -180,7 +215,10 @@ public class ModelHandlerBase {
      * @param metadata              The metadata
      * @param modelResourceLocation The full model location
      */
-    protected void registerItemModelForMeta(final Item item, final int metadata, final ModelResourceLocation modelResourceLocation) {
+    protected void registerItemModelForMeta(
+            final Item item,
+            final int metadata,
+            final ModelResourceLocation modelResourceLocation) {
         itemsRegistered.add(item);
         ModelLoader.setCustomModelResourceLocation(item, metadata, modelResourceLocation);
     }

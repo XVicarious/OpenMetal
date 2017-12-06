@@ -9,7 +9,8 @@ import net.minecraft.item.ItemStack;
  */
 public class CreativeTabOpenMetal extends CreativeTabs {
 
-    public static final CreativeTabs tabOpenMetal = new CreativeTabOpenMetal(0, ModOpenMetal.MODID);
+    public static final CreativeTabs TAB_OPEN_METAL =
+            new CreativeTabOpenMetal(0, ModOpenMetal.MODID);
 
     private final int icon;
 

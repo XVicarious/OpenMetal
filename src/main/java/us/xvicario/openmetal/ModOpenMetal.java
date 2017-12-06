@@ -26,7 +26,8 @@ public class ModOpenMetal {
     public static final String VERSION = "0.0.1";
     public static final String NAME = "OpenMetal";
 
-    @SidedProxy(clientSide = "us.xvicario.openmetal.proxy.ClientProxy", serverSide = "us.xvicario.openmetal.proxy.ServerProxy")
+    @SidedProxy(clientSide = "us.xvicario.openmetal.proxy.ClientProxy",
+            serverSide = "us.xvicario.openmetal.proxy.ServerProxy")
     public static CommonProxy proxy;
 
     @Mod.Instance(MODID)
