@@ -1,21 +1,57 @@
 package us.xvicario.openmetal.blocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import slimeknights.mantle.block.EnumBlock;
+import us.xvicario.openmetal.CreativeTabOpenMetal;
+import us.xvicario.openmetal.IVariant;
 import us.xvicario.openmetal.ModOpenMetal;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 /**
- * Created by XVicarious on 12/3/2017.
+ * Created by XVicarious on 11/30/2017.
  */
-public abstract class BlockOpenMetal extends Block implements IMetaBlockName {
+public class BlockOpenMetal extends EnumBlock<EnumOres> implements IMetaBlockName {
 
-    BlockOpenMetal(final Material material, final String blockName) {
-        super(material, material.getMaterialMapColor());
-        setBlockName(this, blockName);
+    public BlockOpenMetal(PropertyEnum enumType) {
+        super(Material.ROCK, enumType, enumType.getValueClass());
+        setHardness(3F);
+        setResistance(5F);
+        setCreativeTab(CreativeTabOpenMetal.TAB_OPEN_METAL);
     }
 
-    public static void setBlockName(final Block block, final String blockName) {
-        block.setRegistryName(ModOpenMetal.MODID, blockName);
-        block.setUnlocalizedName(block.getRegistryName().toString());
+    @Override
+    @Nonnull
+    @ParametersAreNonnullByDefault
+    public ItemStack getPickBlock(
+            IBlockState state,
+            RayTraceResult target,
+            World world,
+            BlockPos pos,
+            EntityPlayer player) {
+        return new ItemStack(
+                Item.getItemFromBlock(this),
+                1,
+                this.getMetaFromState(world.getBlockState(pos)));
     }
+
+    @Override
+    public ItemStack get(IVariant type, int amount) {
+        return new ItemStack(this, amount, type.getMeta());
+    }
+
+    @Override
+    public String getName(final ItemStack itemStack) {
+        return EnumOres.getNameFromMeta(itemStack.getMetadata());
+    }
+
 }

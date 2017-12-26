@@ -2,19 +2,18 @@ package us.xvicario.openmetal.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import slimeknights.mantle.block.EnumBlock;
 import us.xvicario.openmetal.CreativeTabOpenMetal;
 import us.xvicario.openmetal.EnumMetal;
 import us.xvicario.openmetal.IVariant;
+import us.xvicario.openmetal.ModOpenMetal;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -22,46 +21,15 @@ import javax.annotation.ParametersAreNonnullByDefault;
 /**
  * Created by XVicarious on 12/3/2017.
  */
-public class BlockOMMetal extends BlockOpenMetal implements IMetaBlockName {
+public class BlockOMMetal extends EnumBlock implements IMetaBlockName {
 
-    public static final PropertyEnum TYPE = PropertyEnum.create("type", EnumMetal.class);
+    public static final PropertyEnum<EnumMetal> TYPE = PropertyEnum.create("type", EnumMetal.class);
 
     public BlockOMMetal() {
-        super(Material.ROCK, "metal");
+        super(Material.ROCK, TYPE, EnumMetal.class);
         setHardness(3F);
         setResistance(5F);
         setCreativeTab(CreativeTabOpenMetal.TAB_OPEN_METAL);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumMetal.COPPER));
-    }
-
-    @Override
-    public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> items) {
-        for (EnumMetal enumOres : EnumMetal.values()) {
-            items.add(new ItemStack(this, 1, enumOres.getMeta()));
-        }
-    }
-
-    @Override
-    @Nonnull
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPE);
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return ((EnumMetal) state.getValue(TYPE)).getMeta();
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    @Nonnull
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, EnumMetal.values()[meta]);
-    }
-
-    @Override
-    public int damageDropped(IBlockState state) {
-        return getMetaFromState(state);
     }
 
     @Override

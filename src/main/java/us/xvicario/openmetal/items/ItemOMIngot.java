@@ -1,6 +1,5 @@
 package us.xvicario.openmetal.items;
 
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
